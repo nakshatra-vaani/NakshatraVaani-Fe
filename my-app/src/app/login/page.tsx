@@ -21,29 +21,20 @@ export default function LoginPage() {
       `}</style>
 
       <div style={{
-        minHeight: "100vh",
-        backgroundColor: "#000",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "40px 24px",
-        position: "relative",
-        overflowX: "hidden",
+        minHeight: "100vh", backgroundColor: "#000",
+        display: "flex", alignItems: "center",
+        justifyContent: "center", padding: "40px 24px",
+        position: "relative", overflowX: "hidden",
       }}>
-        {/* Background Glow */}
         <div style={{
-          position: "fixed",
-          top: "50%", left: "50%",
+          position: "fixed", top: "50%", left: "50%",
           transform: "translate(-50%, -50%)",
           width: "600px", height: "600px",
           background: "rgba(37, 99, 235, 0.18)",
-          filter: "blur(120px)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-          zIndex: 0,
+          filter: "blur(120px)", borderRadius: "50%",
+          pointerEvents: "none", zIndex: 0,
         }} />
 
-        {/* Main Card */}
         <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: "500px" }}>
           <div style={{
             borderRadius: "32px",
@@ -61,8 +52,7 @@ export default function LoginPage() {
               <h1 style={{
                 fontSize: "36px", lineHeight: 1.2,
                 fontFamily: "Georgia, serif",
-                letterSpacing: "0.18em",
-                color: "#E8CC8B", margin: 0,
+                letterSpacing: "0.18em", color: "#E8CC8B", margin: 0,
               }}>
                 NAKSHATRA<br />VANI
               </h1>
@@ -75,10 +65,9 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {/* Inner Form Container — LoginForm plugs in here */}
+            {/* Inner Form Container */}
             <div style={{
-              marginTop: "24px",
-              borderRadius: "22px",
+              marginTop: "24px", borderRadius: "22px",
               border: "1px solid rgba(255,255,255,0.05)",
               background: "rgba(10, 16, 32, 0.8)",
               padding: "28px 28px 24px",
@@ -95,38 +84,10 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              {/* ✅ LoginForm owns all inputs, state, and submission */}
+              {/* ✅ LoginForm owns everything including social buttons now */}
               <LoginForm />
-
-              {/* Divider */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "20px 0 16px" }}>
-                <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
-                <span style={{ fontSize: "10px", letterSpacing: "0.25em", color: "#6B7280", textTransform: "uppercase", whiteSpace: "nowrap" }}>
-                  Or Connect Via
-                </span>
-                <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
-              </div>
-
-              {/* Social Buttons */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                <button style={{
-                  height: "44px", borderRadius: "12px",
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#E5E7EB", fontSize: "13px",
-                  letterSpacing: "0.2em", cursor: "pointer",
-                }}>GOOGLE</button>
-                <button style={{
-                  height: "44px", borderRadius: "12px",
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#E5E7EB", fontSize: "13px",
-                  letterSpacing: "0.2em", cursor: "pointer",
-                }}>APPLE</button>
-              </div>
             </div>
 
-            {/* Sign Up */}
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <p style={{ color: "#9CA3AF", fontSize: "13px" }}>
                 Don&apos;t have an account?{" "}
@@ -136,7 +97,6 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {/* Footer */}
             <div style={{
               marginTop: "16px", textAlign: "center",
               fontSize: "10px", letterSpacing: "0.35em",

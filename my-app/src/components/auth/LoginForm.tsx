@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock } from "lucide-react";
-import { loginUser } from "@/services/auth.service";
+import { loginUser, loginWithGoogle } from "@/services/auth.service";
 import { LoginPayload } from "@/types/auth.types";
+import { SocialButton } from "@/components/ui/SocialButton";
 
-// ✅ Named export so page.tsx can import as { LoginForm }
 export function LoginForm() {
   const router = useRouter();
 
@@ -16,6 +16,7 @@ export function LoginForm() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,14 +37,30 @@ export function LoginForm() {
 
     try {
       setLoading(true);
-      const response = await loginUser(formData);
-      localStorage.setItem("token", response.token);
+      await loginUser(formData);
       router.push("/dashboard");
     } catch (err: unknown) {
-      console.error(err);
-      setError("Login failed. Please check your credentials.");
+      setError(
+        err instanceof Error ? err.message : "Login failed. Please check your credentials."
+      );
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ✅ Google login handler
+  const handleGoogleLogin = async () => {
+    setError("");
+    try {
+      setGoogleLoading(true);
+      await loginWithGoogle();
+      router.push("/dashboard");
+    } catch (err: unknown) {
+      setError(
+        err instanceof Error ? err.message : "Google login failed. Please try again."
+      );
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -131,7 +148,6 @@ export function LoginForm() {
               color: "#fff", fontSize: "13px",
             }}
           />
-          {/* ✅ Toggle password visibility */}
           <button
             type="button"
             onClick={() => setShowPassword((p) => !p)}
@@ -145,7 +161,7 @@ export function LoginForm() {
       {/* Submit */}
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || googleLoading}
         style={{
           width: "100%", height: "44px",
           borderRadius: "999px",
@@ -160,6 +176,29 @@ export function LoginForm() {
       >
         {loading ? "LOGGING IN..." : "LOG IN"}
       </button>
+
+      {/* Divider */}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "20px 0 16px" }}>
+        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
+        <span style={{ fontSize: "10px", letterSpacing: "0.25em", color: "#6B7280", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+          Or Connect Via
+        </span>
+        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.1)" }} />
+      </div>
+
+      {/* ✅ Social Buttons now wired up */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+        <SocialButton
+          provider="GOOGLE"
+          onClick={handleGoogleLogin}
+          disabled={loading || googleLoading}
+        />
+        <SocialButton
+          provider="APPLE"
+          onClick={() => {}}   
+          disabled={true}
+        />
+      </div>
     </form>
   );
 }

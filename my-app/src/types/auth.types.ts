@@ -25,3 +25,8 @@ export interface AuthResponse {
     placeOfBirth?: string;
   };
 }
+
+export interface FirebaseAuthResponse {
+  firebaseToken: string;
+  firebaseUid: string;
+}
