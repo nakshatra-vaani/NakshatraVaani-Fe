@@ -1,24 +1,22 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
+import { CelestialHighlights } from "@/components/dashboard/CelestialHighlights";
+import { DailyHoroscope } from "@/components/dashboard/DailyHoroscope";
+import { SacredServices } from "@/components/dashboard/SacredServices";
+import { DetailedReports } from "@/components/dashboard/DetailedReports";
 
 export default function DashboardPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      router.push("/login");
-    }
-  }, []);
-
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold">
-        Dashboard
-      </h1>
-    </div>
+    <main className="min-h-screen bg-[#0A0A10] pb-24">
+      {/* Top Spacer / Safe area */}
+      <div className="h-4" />
+
+      {/* Sections */}
+      <div className="flex flex-col gap-8">
+        <CelestialHighlights />
+        <DailyHoroscope />
+        <SacredServices />
+        <DetailedReports />
+      </div>
+    </main>
   );
 }
