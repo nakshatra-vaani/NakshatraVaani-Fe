@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/HiTechButton";
 
 interface HighlightCard {
   id: string;
@@ -53,11 +53,10 @@ export const CelestialHighlights: React.FC = () => {
             <button
               key={i}
               onClick={() => setActiveIndex(i)}
-              className={`rounded-full transition-all duration-300 ${
-                i === activeIndex
+              className={`rounded-full transition-all duration-300 ${i === activeIndex
                   ? "w-5 h-1.5 bg-white"
                   : "w-1.5 h-1.5 bg-white/25"
-              }`}
+                }`}
             />
           ))}
         </div>

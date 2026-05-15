@@ -58,12 +58,7 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
         {services.map((service) => (
           <div
             key={service.id}
-            className="
-              flex-shrink-0 w-[180px] bg-[#111118] border border-white/[0.06]
-              rounded-2xl p-5 cursor-pointer group
-              hover:border-white/10 hover:bg-[#141420]
-              transition-all duration-200 active:scale-[0.98]
-            "
+            className="flex-shrink-0 w-[180px] bg-[#111118] border border-white/[0.06] rounded-2xl p-5 cursor-pointer group hover:border-white/10 hover:bg-[#141420] transition-all duration-200 active:scale-[0.98]"
           >
             {/* Icon */}
             <div
