@@ -21,9 +21,9 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-4 py-1.5 text-xs rounded-full",
-  md: "px-6 py-2.5 text-sm rounded-full",
-  lg: "px-8 py-3.5 text-base rounded-full",
+  sm: "text-xs rounded-full",
+  md: "text-sm rounded-full",
+  lg: "text-base rounded-full",
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -32,8 +32,17 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   fullWidth = false,
   className = "",
+  style,
   ...props
 }) => {
+  const getPadding = () => {
+    switch (size) {
+      case "sm": return "6px 16px";
+      case "lg": return "14px 32px";
+      default: return "10px 24px";
+    }
+  };
+
   return (
     <button
       className={`
@@ -44,6 +53,7 @@ export const Button: React.FC<ButtonProps> = ({
         ${fullWidth ? "w-full" : ""}
         ${className}
       `}
+      style={{ padding: getPadding(), ...style }}
       {...props}
     >
       {children}

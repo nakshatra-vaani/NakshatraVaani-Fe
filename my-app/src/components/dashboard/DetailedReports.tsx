@@ -118,11 +118,7 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
 
       {/* Divine Soul Partner Report CTA */}
       <div
-        className="
-          relative rounded-2xl overflow-hidden p-5
-          bg-gradient-to-br from-[#1C1208] via-[#241A0A] to-[#0E0E1A]
-          border border-[#C9913A]/20
-        "
+        className="relative rounded-2xl overflow-hidden p-5 bg-gradient-to-br from-[#1C1208] via-[#241A0A] to-[#0E0E1A] border border-[#C9913A]/20"
       >
         {/* Subtle glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9913A]/10 rounded-full blur-2xl -translate-y-8 translate-x-8 pointer-events-none" />
