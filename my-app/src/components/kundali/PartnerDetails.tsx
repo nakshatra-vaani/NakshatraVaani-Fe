@@ -2,9 +2,9 @@
 
 import React from "react";
 import { TextInput } from "./TextInput";
-import { DateInput } from "./DateInput";
-import { TimeInput } from "./TimeInput";
 import { LocationInput } from "./LocationInput";
+import { CalendarPicker } from "@/components/ui/CalendarPicker";
+import { TimePicker } from "@/components/ui/TimePicker";
 import { User } from "lucide-react";
 
 interface PartnerData {
@@ -27,6 +27,17 @@ export const PartnerDetails: React.FC<PartnerDetailsProps> = ({
   data,
   onChange,
 }) => {
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "'Manrope', sans-serif",
+    fontSize: "11px",
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    color: "#bcc7de",
+    fontWeight: 500,
+    marginBottom: "8px",
+    display: "block",
+  };
+
   return (
     <div className="flex flex-col gap-8">
       {/* Header with icon and title */}
@@ -72,16 +83,20 @@ export const PartnerDetails: React.FC<PartnerDetailsProps> = ({
 
       {/* Date & Time Row */}
       <div className="grid grid-cols-2 gap-4">
-        <DateInput
-          label="Date of Birth"
-          value={data.dateOfBirth}
-          onChange={(value) => onChange("dateOfBirth", value)}
-        />
-        <TimeInput
-          label="Time of Birth"
-          value={data.timeOfBirth}
-          onChange={(value) => onChange("timeOfBirth", value)}
-        />
+        <div className="flex flex-col">
+          <label style={labelStyle}>Date of Birth</label>
+          <CalendarPicker
+            value={data.dateOfBirth}
+            onChange={(value) => onChange("dateOfBirth", value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label style={labelStyle}>Time of Birth</label>
+          <TimePicker
+            value={data.timeOfBirth}
+            onChange={(value) => onChange("timeOfBirth", value)}
+          />
+        </div>
       </div>
 
       {/* Place of Birth */}
