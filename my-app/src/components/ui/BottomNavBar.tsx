@@ -65,7 +65,7 @@ export const BottomNavBar: React.FC = () => {
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 rounded-tl-[32px] rounded-tr-[32px] border-t border-[rgba(188,199,222,0.1)]"
       style={{
-        height: '72px',
+        height: '64px',
         background: "rgba(19,19,21,0.6)",
         backdropFilter: "blur(6px)",
         boxShadow: "0px -10px 40px 0px rgba(188,199,222,0.08)",

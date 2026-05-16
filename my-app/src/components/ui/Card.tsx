@@ -6,6 +6,7 @@ interface CardProps {
   onClick?: () => void;
   hoverable?: boolean;
   padding?: "none" | "sm" | "md" | "lg";
+  style?: React.CSSProperties;
 }
 
 const paddingStyles = {
@@ -21,6 +22,7 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   hoverable = false,
   padding = "md",
+  style,
 }) => {
   return (
     <div
@@ -31,6 +33,7 @@ export const Card: React.FC<CardProps> = ({
         ${hoverable ? "cursor-pointer transition-all duration-200 hover:border-white/10 hover:bg-[#141420] active:scale-[0.99]" : ""}
         ${className}
       `}
+      style={style}
     >
       {children}
     </div>

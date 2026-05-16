@@ -1,8 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-interface HorizontalScrollProps {
+interface HorizontalScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  className?: string;
   gap?: "sm" | "md" | "lg";
 }
 
@@ -12,21 +11,22 @@ const gapStyles = {
   lg: "gap-5",
 };
 
-export const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
-  children,
-  className = "",
-  gap = "md",
-}) => {
-  return (
-    <div
-      className={`
-        flex overflow-x-auto scrollbar-hide pb-1
-        ${gapStyles[gap]}
-        ${className}
-      `}
-      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-    >
-      {children}
-    </div>
-  );
-};
+export const HorizontalScroll = forwardRef<HTMLDivElement, HorizontalScrollProps>(
+  ({ children, className = "", gap = "md", ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        {...props}
+        className={`
+          flex overflow-x-auto scrollbar-hide pb-1
+          ${gapStyles[gap]}
+          ${className}
+        `}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollBehavior: "smooth" }}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+HorizontalScroll.displayName = "HorizontalScroll";

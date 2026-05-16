@@ -1,88 +1,153 @@
 "use client";
 
-import React from "react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import React, { useState, useRef, useCallback } from "react";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
-
-interface ServiceCard {
-  id: string;
-  icon: string;
-  title: string;
-  description: string;
-  iconBg: string;
-}
-
-const services: ServiceCard[] = [
-  {
-    id: "1",
-    icon: "📖",
-    title: "Personalized Horoscope",
-    description: "Deep dive into your birth chart transits for the week ahead.",
-    iconBg: "bg-[#1A1A2E]",
-  },
-  {
-    id: "2",
-    icon: "🤖",
-    title: "AI Astrologer",
-    description: "Ask anything about your career, love, and life path.",
-    iconBg: "bg-[#1A2A1A]",
-  },
-  {
-    id: "3",
-    icon: "🔮",
-    title: "Birth Chart Reading",
-    description: "Complete natal chart analysis with planetary positions.",
-    iconBg: "bg-[#2A1A1A]",
-  },
-  {
-    id: "4",
-    icon: "✨",
-    title: "Compatibility Match",
-    description: "Discover your cosmic compatibility with any sign.",
-    iconBg: "bg-[#2A2A1A]",
-  },
-];
+import { BookOpen, Brain, Heart, Infinity as InfinityIcon } from "lucide-react";
 
 interface SacredServicesProps {
   onViewAll?: () => void;
 }
 
+const services = [
+  {
+    id: "horoscope",
+    title: "Personalized Horoscope",
+    description: "Deep dive into your birth chart transits for the week ahead.",
+    icon: <BookOpen width="24" height="24" color="#60a5fa" />,
+    iconBg: "rgba(96, 165, 250, 0.08)",
+  },
+  {
+    id: "ai",
+    title: "AI Astrologer",
+    description: "Ask anything about your life path, career, or spiritual journey.",
+    icon: <Brain width="24" height="24" color="#fbbf24" />,
+    iconBg: "rgba(251, 191, 36, 0.08)",
+  },
+  {
+    id: "kundali",
+    title: "Kundali Matching",
+    description: "Explore the Gun-Milan and Dosha compatibility for your union.",
+    icon: <Heart width="24" height="24" color="#93c5fd" />,
+    iconBg: "rgba(147, 197, 253, 0.08)",
+  },
+  {
+    id: "soulmate",
+    title: "Soulmate Connection",
+    description: "Predictive analysis of your partner's characteristics.",
+    icon: <InfinityIcon width="24" height="24" color="#fcd34d" />,
+    iconBg: "rgba(252, 211, 77, 0.08)",
+  },
+];
+
 export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = useCallback(() => {
+    if (!scrollContainerRef.current) return;
+    const scrollLeft = scrollContainerRef.current.scrollLeft;
+    // card width (300px) + gap-md (16px) = 316px approx
+    const cardWidth = 316;
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    if (newIndex !== activeIndex && newIndex >= 0 && newIndex < services.length) {
+      setActiveIndex(newIndex);
+    }
+  }, [activeIndex]);
+
+  const scrollTo = (index: number) => {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = 316;
+    scrollContainerRef.current.scrollTo({
+      left: index * cardWidth,
+      behavior: "smooth"
+    });
+    setActiveIndex(index);
+  };
+
   return (
-    <section>
-      <div className="px-5 mb-4">
-        <SectionHeader title="Sacred Services" onViewAll={onViewAll} />
+    <section className="w-full">
+      <div className="flex items-center justify-between mb-8">
+        <h2 style={{ fontFamily: "'Noto Serif', 'Georgia', serif", fontSize: "28px", color: "#e5e1e4", fontWeight: 500 }}>
+          Sacred Services
+        </h2>
+        <div className="flex items-center gap-6">
+          {/* Functional Scroll Indicators */}
+          <div className="flex items-center" style={{ gap: "8px" }}>
+            {services.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollTo(i)}
+                style={{
+                  width: i === activeIndex ? "6px" : "4px",
+                  height: i === activeIndex ? "6px" : "4px",
+                  borderRadius: "50%",
+                  background: i === activeIndex ? "#e1c296" : "rgba(255,255,255,0.2)",
+                  transition: "all 0.3s ease",
+                  padding: 0,
+                  border: "none",
+                  cursor: "pointer"
+                }}
+                aria-label={`Scroll to service ${i + 1}`}
+              />
+            ))}
+          </div>
+          {onViewAll && (
+            <button 
+              onClick={onViewAll} 
+              style={{ 
+                fontFamily: "'Manrope', sans-serif", fontSize: "10px", letterSpacing: "0.15em", 
+                textTransform: "uppercase", color: "#e1c296", fontWeight: 700,
+                background: "none", border: "none", cursor: "pointer",
+                paddingBottom: "4px", borderBottom: "1px solid rgba(225,194,150,0.3)"
+              }}
+            >
+              VIEW ALL
+            </button>
+          )}
+        </div>
       </div>
 
-      <HorizontalScroll className="px-5" gap="md">
+      <HorizontalScroll 
+        ref={scrollContainerRef}
+        className="px-0" 
+        gap="md"
+        onScroll={handleScroll}
+      >
         {services.map((service) => (
           <div
             key={service.id}
-            className="flex-shrink-0 w-[180px] bg-[#111118] border border-white/[0.06] rounded-2xl p-5 cursor-pointer group hover:border-white/10 hover:bg-[#141420] transition-all duration-200 active:scale-[0.98]"
+            className="flex-shrink-0 flex flex-col relative group cursor-pointer"
+            style={{
+              width: "300px",
+              minHeight: "320px",
+              background: "#1c1b1d",
+              borderRadius: "32px",
+              padding: "36px",
+              border: "1px solid rgba(225,194,150,0.05)",
+              transition: "all 0.3s ease"
+            }}
           >
             {/* Icon */}
             <div
-              className={`
-                w-11 h-11 ${service.iconBg} rounded-xl flex items-center justify-center
-                text-xl mb-4 border border-white/[0.06]
-              `}
+              className="flex items-center justify-center rounded-2xl mb-8"
+              style={{ width: "64px", height: "64px", background: service.iconBg }}
             >
               {service.icon}
             </div>
 
             {/* Text */}
-            <h3 className="text-white font-semibold text-sm leading-tight mb-2">
+            <h3 style={{ fontFamily: "'Noto Serif', 'Georgia', serif", color: "#fff", fontSize: "20px", fontWeight: 500, lineHeight: "1.3", marginBottom: "12px" }}>
               {service.title}
             </h3>
-            <p className="text-white/40 text-xs leading-relaxed line-clamp-3">
+            <p style={{ fontFamily: "'Manrope', sans-serif", color: "#c6c6cd", fontSize: "14px", lineHeight: 1.6, fontWeight: 300 }}>
               {service.description}
             </p>
 
-            {/* Arrow */}
-            <div className="mt-4 flex justify-end">
-              <span className="text-white/25 group-hover:text-white/60 transition-colors duration-200 text-lg">
-                →
-              </span>
+            {/* Arrow bottom right */}
+            <div className="absolute bottom-[36px] right-[36px]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#e1c296] opacity-50 group-hover:opacity-100 transition-opacity">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
           </div>
         ))}

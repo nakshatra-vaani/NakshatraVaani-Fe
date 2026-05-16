@@ -1,13 +1,18 @@
 "use client";
 
 import React from "react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/HiTechButton";
+import {
+  MarriageIcon,
+  EducationIcon,
+  LoyaltyIcon,
+  CareerIcon,
+  HealthIcon,
+  OverallLifeIcon,
+} from "@/components/reports/ReportIcons";
 
 interface Report {
   id: string;
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   description: string;
 }
@@ -15,79 +20,41 @@ interface Report {
 const reports: Report[] = [
   {
     id: "marriage",
-    icon: "💞",
+    icon: <MarriageIcon />,
     title: "Marriage Report",
     description: "Timeline & marital bliss analysis.",
   },
   {
     id: "education",
-    icon: "🎓",
+    icon: <EducationIcon />,
     title: "Educational Report",
     description: "Academic path & competitive exams.",
   },
   {
     id: "loyalty",
-    icon: "🛡️",
+    icon: <LoyaltyIcon />,
     title: "Loyalty Report",
     description: "Deep trust & partnership honesty.",
   },
   {
     id: "career",
-    icon: "💰",
+    icon: <CareerIcon />,
     title: "Career & Wealth",
     description: "Financial destiny & promotion peaks.",
   },
   {
     id: "health",
-    icon: "🌿",
+    icon: <HealthIcon />,
     title: "Health",
     description: "Vitality trends & ayurvedic balance.",
   },
   {
     id: "overall",
-    icon: "〰️",
+    icon: <OverallLifeIcon />,
     title: "Overall Life",
     description: "360° view of your karmic timeline.",
   },
 ];
-
-interface ReportRowProps extends Report {
-  isLast?: boolean;
-}
-
-const ReportRow: React.FC<ReportRowProps> = ({
-  icon,
-  title,
-  description,
-  isLast = false,
-}) => (
-  <div
-    className={`
-      flex items-center gap-4 py-4 cursor-pointer group
-      hover:bg-white/[0.02] rounded-xl px-1 -mx-1
-      transition-colors duration-150
-      ${!isLast ? "border-b border-white/[0.05]" : ""}
-    `}
-  >
-    {/* Icon container */}
-    <div className="w-10 h-10 bg-[#1A1A26] border border-white/[0.06] rounded-xl flex items-center justify-center text-lg flex-shrink-0">
-      {icon}
-    </div>
-
-    {/* Text */}
-    <div className="flex-1 min-w-0">
-      <p className="text-white text-sm font-medium leading-tight">{title}</p>
-      <p className="text-white/35 text-xs mt-0.5 leading-tight truncate">
-        {description}
-      </p>
-    </div>
-
-    {/* Arrow */}
-    <span className="text-white/20 group-hover:text-white/50 transition-colors duration-200 text-base flex-shrink-0">
-      ›
-    </span>
-  </div>
-);
 
 interface DetailedReportsProps {
   onGetAccess?: () => void;
@@ -97,56 +64,100 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
   onGetAccess,
 }) => {
   return (
-    <section className="px-5">
-      <div className="mb-4">
-        <SectionHeader
-          title="Detailed Reports"
-          subtitle="Comprehensive astrological blueprints generated for your specific transit."
-        />
+    <section className="w-full">
+      <div className="mb-8">
+        <h2 style={{ fontFamily: "'Noto Serif', 'Georgia', serif", fontWeight: 500, fontSize: "28px", color: "#e5e1e4", marginBottom: "8px" }}>
+          Detailed Reports
+        </h2>
+        <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", color: "rgba(188,199,222,0.6)", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>
+          Comprehensive astrological blueprints generated for your specific transit.
+        </p>
       </div>
 
-      {/* Reports List Card */}
-      <Card padding="none" className="px-4 py-2 mb-4">
-        {reports.map((report, index) => (
-          <ReportRow
+      {/* Grid of Reports */}
+      <div className="grid grid-cols-3" style={{ gap: '24px', marginBottom: '24px' }}>
+        {reports.map((report) => (
+          <div
             key={report.id}
-            {...report}
-            isLast={index === reports.length - 1}
-          />
+            className="flex items-center rounded-2xl cursor-pointer transition-all duration-200 active:scale-[0.98] hover:border-white/10"
+            style={{
+              padding: '24px',
+              gap: '16px',
+              background: '#1c1b1d',
+              border: '1px solid rgba(69,70,77,0.1)'
+            }}
+          >
+            {/* Icon Box */}
+            <div 
+              className="flex items-center justify-center rounded-xl flex-shrink-0"
+              style={{ width: '52px', height: '52px', background: '#1A1A26', border: '1px solid rgba(255,255,255,0.06)' }}
+            >
+              <div style={{ transform: 'scale(0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {report.icon}
+              </div>
+            </div>
+
+            {/* Text */}
+            <div className="flex-1 min-w-0 flex flex-col justify-center">
+              <h3 style={{ fontFamily: "'Noto Serif', 'Georgia', serif", fontSize: "16px", fontWeight: 500, color: "#fff", lineHeight: "1.2", marginBottom: "6px" }}>
+                {report.title}
+              </h3>
+              <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "12px", color: "#c6c6cd", lineHeight: "1.4", fontWeight: 300 }}>
+                {report.description}
+              </p>
+            </div>
+          </div>
         ))}
-      </Card>
+      </div>
 
       {/* Divine Soul Partner Report CTA */}
-      <div
-        className="relative rounded-2xl overflow-hidden p-5 bg-gradient-to-br from-[#1C1208] via-[#241A0A] to-[#0E0E1A] border border-[#C9913A]/20"
+      <div 
+        className="relative rounded-3xl overflow-hidden w-full"
+        style={{
+          padding: '32px 40px',
+          background: 'linear-gradient(135deg, rgba(28,18,8,0.9) 0%, rgba(36,26,10,0.8) 40%, rgba(14,14,26,0.9) 100%)',
+          border: '1px solid rgba(201,145,58,0.15)'
+        }}
       >
-        {/* Subtle glow */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#C9913A]/10 rounded-full blur-2xl -translate-y-8 translate-x-8 pointer-events-none" />
+        <div className="flex items-center justify-between relative z-10 w-full">
+          <div className="flex items-center" style={{ gap: '24px' }}>
+            {/* Gem icon */}
+            <div 
+              className="rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ width: '72px', height: '72px', background: 'rgba(201,145,58,0.1)', border: '1px solid rgba(201,145,58,0.2)' }}
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="#e1c296">
+                <path d="M6 3L2 9L12 21L22 9L18 3H6ZM5.4 5H18.6L20.2 7.4L12 17.6L3.8 7.4L5.4 5ZM10 5H14V8H10V5ZM7.5 5H8.5V8H4.5L7.5 5ZM15.5 5H16.5L19.5 8H15.5V5ZM11 9.5V14.5L7.5 9.5H11ZM13 9.5H16.5L13 14.5V9.5Z" />
+              </svg>
+            </div>
 
-        <div className="flex gap-4 items-start relative z-10">
-          {/* Gem icon */}
-          <div className="w-12 h-12 rounded-xl bg-[#C9913A]/15 border border-[#C9913A]/25 flex items-center justify-center text-2xl flex-shrink-0">
-            💎
-          </div>
-
-          <div className="flex-1 space-y-3">
-            <div>
-              <h3 className="text-white font-semibold text-base leading-tight">
+            <div className="flex flex-col">
+              <h3 style={{ fontFamily: "'Noto Serif', 'Georgia', serif", fontSize: "26px", fontWeight: 500, color: "#fff", lineHeight: "1.2", marginBottom: "8px" }}>
                 Divine Soul Partner Report
               </h3>
-              <p className="text-white/45 text-xs mt-1.5 leading-relaxed">
+              <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "14px", color: "rgba(255,255,255,0.6)", fontWeight: 300 }}>
                 The ultimate blueprint of your cosmic twin flame.
               </p>
             </div>
-            <Button
-              variant="secondary"
-              size="sm"
-              className="border-[#C9913A]/30 hover:border-[#C9913A]/50"
-              onClick={onGetAccess}
-            >
-              Get Access
-            </Button>
           </div>
+          
+          <button
+            onClick={onGetAccess}
+            className="rounded-full transition-transform active:scale-95 hover:bg-[#bcc7de]/90"
+            style={{ 
+              background: '#bcc7de', 
+              color: '#0A0A10', 
+              fontWeight: 700, 
+              fontSize: '11px',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              padding: '16px 36px',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            Get Access
+          </button>
         </div>
       </div>
     </section>

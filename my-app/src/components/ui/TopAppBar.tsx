@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Sparkles, User, Search } from "lucide-react";
 
 interface TopAppBarProps {
   showNotification?: boolean;
@@ -13,6 +13,8 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
   showNotification = true,
   profileImageSrc,
 }) => {
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between backdrop-blur-[12px]"
@@ -33,10 +35,11 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
 
         {/* Logo text */}
         <span
-          className="text-[#e1c296] text-2xl tracking-[0.05em] leading-none"
+          className="text-[#e1c296] text-[18px] leading-none uppercase hidden sm:block"
           style={{
             fontFamily: "'Georgia', 'Palatino', serif",
-            fontStyle: "italic",
+            letterSpacing: "0.15em",
+            fontWeight: 600,
             textShadow: "0px 0px 4px rgba(225,194,150,0.4)",
           }}
         >
@@ -44,17 +47,58 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
         </span>
       </div>
 
-      {/* Right: Notification */}
-      {showNotification && (
-        <button className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(188,199,222,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-          </svg>
-          {/* Active dot */}
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#e1c296]" />
+      {/* Right: Actions */}
+      <div className="flex items-center gap-4">
+        {/* Search Widget */}
+        <div className="hidden md:block w-[240px] lg:w-[320px] mr-2">
+          <div className="relative flex items-center w-full">
+            <div className="absolute left-4 flex items-center pointer-events-none">
+              <Search 
+                size={16} 
+                color={isSearchFocused ? "#e1c296" : "rgba(188,199,222,0.5)"} 
+                style={{ transition: "all 0.3s ease" }} 
+              />
+            </div>
+            <input 
+              type="text" 
+              placeholder="Search horoscopes, signs, charts…" 
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
+              className="w-full rounded-full py-[12px] pr-4 text-[14px] text-[#e5e1e4] focus:outline-none transition-all duration-300 placeholder-[rgba(188,199,222,0.4)]"
+              style={{ 
+                background: isSearchFocused ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.03)", 
+                border: isSearchFocused ? "1px solid rgba(225,194,150,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                fontFamily: "'Manrope', sans-serif",
+                boxShadow: isSearchFocused ? "0px 0px 20px rgba(201, 145, 58, 0.1)" : "inset 0px 2px 10px rgba(0,0,0,0.2)",
+                paddingLeft: "44px"
+              }}
+            />
+          </div>
+        </div>
+        {/* Notification */}
+        {showNotification && (
+          <button className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(188,199,222,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            {/* Active dot */}
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#e1c296]" />
+          </button>
+        )}
+
+        {/* Avatar */}
+        <button 
+          className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden border border-white/10 hover:border-[#e1c296]/50 transition-colors"
+          style={{ background: "rgba(255,255,255,0.05)" }}
+        >
+          {profileImageSrc ? (
+            <img src={profileImageSrc} alt="Profile" className="w-full h-full object-cover" />
+          ) : (
+            <User size={18} color="rgba(188,199,222,0.8)" strokeWidth={2} />
+          )}
         </button>
-      )}
+      </div>
     </header>
   );
 };
