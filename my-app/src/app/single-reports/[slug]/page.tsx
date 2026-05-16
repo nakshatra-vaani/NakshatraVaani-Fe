@@ -1,15 +1,19 @@
+import React from "react";
 import { notFound } from "next/navigation";
+import { TopAppBar } from "@/components/ui/TopAppBar";
+import { BottomNavBar } from "@/components/ui/BottomNavBar";
+import { Sparkles } from "lucide-react";
 
 type InsightCard = {
   icon: string;
   tag?: string;
   title: string;
   description: string;
+  layout?: "card" | "wide";
 };
 
 type ReportData = {
   title: string;
-  subtitle: string;
   compatibility: string;
   element: string;
   summary: string;
@@ -19,7 +23,6 @@ type ReportData = {
 const reports: Record<string, ReportData> = {
   "marriage-report": {
     title: "Marital Bliss Alignment",
-    subtitle: "Your union is whispered in the silent orbits of Jupiter and Venus.",
     compatibility: "94.8%",
     element: "Aether",
     summary:
@@ -31,25 +34,27 @@ const reports: Record<string, ReportData> = {
         title: "Communication Harmony",
         description:
           "The alignment of your Mercury positions facilitates a fluid exchange of thoughts. Words are not just sounds, but bridges between your inner worlds.",
+        layout: "card",
       },
       {
         icon: "🧘",
         title: "Spiritual Resonance",
         description:
           "Your 12th houses mirror each other, indicating a deep, unspoken spiritual contract signed before this incarnation.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Karmic Timing",
         description:
           "The current Saturn transit marks a significant milestone in your relationship. This is the era of solidification and building a legacy that will stand the test of temporal shifts.",
+        layout: "wide",
       },
     ],
   },
 
   "educational-report": {
     title: "Educational Destiny",
-    subtitle: "Mercury illuminates your path toward intellectual mastery.",
     compatibility: "88.2%",
     element: "Air",
     summary:
@@ -61,25 +66,27 @@ const reports: Record<string, ReportData> = {
         title: "Intellectual Alignment",
         description:
           "Your Mercury placement creates a natural affinity for absorbing and synthesizing complex ideas, gifting you with the ability to learn across disciplines.",
+        layout: "card",
       },
       {
         icon: "🌙",
         title: "Intuitive Learning",
         description:
           "The Moon's position enhances your emotional intelligence, allowing you to understand subjects on a deeply intuitive level beyond mere logic.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Optimal Timing",
         description:
           "Jupiter's transit through your 9th house signals an era of profound academic breakthroughs and the discovery of your true intellectual calling.",
+        layout: "wide",
       },
     ],
   },
 
   "career-wealth-report": {
     title: "Career & Wealth Alignment",
-    subtitle: "Saturn's discipline opens the gates to abundance and authority.",
     compatibility: "91.4%",
     element: "Earth",
     summary:
@@ -91,25 +98,27 @@ const reports: Record<string, ReportData> = {
         title: "Authority & Structure",
         description:
           "Saturn's placement in your 10th house draws you toward positions of leadership and lasting institutional impact.",
+        layout: "card",
       },
       {
         icon: "💫",
         title: "Abundance Portal",
         description:
           "Venus conjunct Jupiter in your 2nd house opens a powerful channel for wealth accumulation through creative and collaborative endeavors.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Power Window",
         description:
           "The next 18 months represent a rare convergence of planetary support for career elevation. Decisive action now echoes through decades.",
+        layout: "wide",
       },
     ],
   },
 
   "health-report": {
     title: "Health Resonance",
-    subtitle: "Your cosmic energies indicate strong spiritual vitality.",
     compatibility: "86.7%",
     element: "Water",
     summary:
@@ -121,25 +130,27 @@ const reports: Record<string, ReportData> = {
         title: "Healing Currents",
         description:
           "Neptune's influence heightens your sensitivity to energy, making practices like meditation, yoga, and energy healing especially powerful for you.",
+        layout: "card",
       },
       {
         icon: "🌊",
         title: "Emotional Vitality",
         description:
           "Your emotional body is deeply connected to your physical health. Cultivating inner peace has measurable effects on your physical wellbeing.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Renewal Cycle",
         description:
           "The current lunar phase supports deep cellular regeneration. Honor rest cycles as sacred — they are when your body integrates cosmic downloads.",
+        layout: "wide",
       },
     ],
   },
 
   "overall-life-report": {
     title: "Overall Life Blueprint",
-    subtitle: "The stars reveal a path of transformation and liberation.",
     compatibility: "96.1%",
     element: "Cosmos",
     summary:
@@ -151,25 +162,27 @@ const reports: Record<string, ReportData> = {
         title: "Core Life Purpose",
         description:
           "Your Sun's placement reveals a soul called to illuminate others, leading through authentic self-expression and radiant creative force.",
+        layout: "card",
       },
       {
         icon: "♇",
         title: "Transformative Power",
         description:
           "Pluto's aspects in your chart indicate you carry the seeds of deep transformation — both for yourself and for those in your sphere of influence.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Destiny Activation",
         description:
           "Your North Node is activated by current transits, signaling that you are precisely on schedule with your soul's overarching mission and trajectory.",
+        layout: "wide",
       },
     ],
   },
 
   "loyalty-report": {
     title: "Loyalty Alignment",
-    subtitle: "Trust and devotion are strengthened through lunar harmony.",
     compatibility: "89.9%",
     element: "Moon",
     summary:
@@ -181,25 +194,27 @@ const reports: Record<string, ReportData> = {
         title: "Emotional Covenant",
         description:
           "Your Moon's placement creates an almost psychic emotional bond, enabling an instinctive understanding of each other's unspoken needs and desires.",
+        layout: "card",
       },
       {
         icon: "⚖",
         title: "Sacred Trust",
         description:
           "Venus in harmonious aspect to Saturn in your composite chart builds a foundation of trust that deepens over time rather than eroding.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Bonding Cycles",
         description:
           "Current lunar transits are weaving new layers of emotional depth into your connection, inviting vulnerability as a pathway to greater intimacy.",
+        layout: "wide",
       },
     ],
   },
 
   "divine-soul-partner": {
     title: "Divine Soul Partner",
-    subtitle: "Your karmic threads are deeply intertwined across lifetimes.",
     compatibility: "98.4%",
     element: "Eternal",
     summary:
@@ -211,397 +226,25 @@ const reports: Record<string, ReportData> = {
         title: "Karmic Recognition",
         description:
           "Your North Nodes form a rare conjunction, signaling that this relationship is central to both souls' evolutionary path in this incarnation.",
+        layout: "card",
       },
       {
         icon: "✦",
         title: "Twin Flame Resonance",
         description:
           "The mirroring of your Venus–Mars axes creates a magnetic polarity that draws you together with the irresistible force of cosmic gravity.",
+        layout: "card",
       },
       {
         icon: "⏱",
         title: "Sacred Convergence",
         description:
           "This lifetime represents the culmination of a multi-incarnational journey. The time of full soul recognition and union is cosmically imminent.",
+        layout: "wide",
       },
     ],
   },
 };
-
-// ── Inline CSS (avoids needing Tailwind / external stylesheets) ──────────────
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
-
-  :root {
-    --gold:        #C9A853;
-    --gold-light:  #E2C97E;
-    --gold-dim:    #8A6E35;
-    --bg-deep:     #06060A;
-    --bg-card:     rgba(255,255,255,0.045);
-    --bg-card-hov: rgba(255,255,255,0.07);
-    --border:      rgba(201,168,83,0.15);
-    --text-body:   rgba(255,255,255,0.72);
-    --text-dim:    rgba(255,255,255,0.38);
-    --tag-bg:      rgba(255,255,255,0.10);
-    --tag-border:  rgba(255,255,255,0.18);
-    --cream:       #EDE4CE;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--bg-deep);
-    color: white;
-    min-height: 100vh;
-  }
-
-  /* ── Starfield background ── */
-  .oracle-bg {
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(100,70,20,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 80% at 80% 100%, rgba(60,40,10,0.12) 0%, transparent 60%),
-      var(--bg-deep);
-    overflow: hidden;
-    z-index: 0;
-  }
-  .oracle-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.55) 0%, transparent 100%),
-      radial-gradient(1px 1px at 42% 68%, rgba(255,255,255,0.40) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 70% 15%, rgba(255,255,255,0.50) 0%, transparent 100%),
-      radial-gradient(1px 1px at 88% 42%, rgba(255,255,255,0.35) 0%, transparent 100%),
-      radial-gradient(1px 1px at 25% 85%, rgba(255,255,255,0.45) 0%, transparent 100%),
-      radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.30) 0%, transparent 100%),
-      radial-gradient(1px 1px at 5%  55%, rgba(255,255,255,0.40) 0%, transparent 100%),
-      radial-gradient(1px 1px at 95% 75%, rgba(255,255,255,0.35) 0%, transparent 100%);
-  }
-
-  /* ── Layout ── */
-  .page-wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 0 80px;
-  }
-
-  /* ── Header bar ── */
-  .header-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 20px;
-  }
-  .header-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-  }
-  .header-menu span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: rgba(255,255,255,0.7);
-  }
-  .header-title {
-    font-family: 'Jost', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-  .header-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gold-dim);
-    background: rgba(201,168,83,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  /* ── Orb visual ── */
-  .orb-section {
-    display: flex;
-    justify-content: center;
-    padding: 8px 20px 32px;
-  }
-  .orb-outer {
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,168,83,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .orb-outer::before {
-    content: '•';
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--gold);
-    font-size: 8px;
-  }
-  .orb-outer::after {
-    content: '•';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--gold);
-    font-size: 8px;
-  }
-  .orb-inner {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 38% 40%, rgba(220,160,40,0.9) 0%, rgba(180,110,20,0.7) 25%, rgba(30,20,10,0.95) 65%, #0a0a14 100%);
-    box-shadow:
-      0 0 60px rgba(201,168,83,0.25),
-      0 0 120px rgba(201,168,83,0.10),
-      inset 0 0 30px rgba(0,0,0,0.6);
-    position: relative;
-    overflow: hidden;
-    animation: orbPulse 4s ease-in-out infinite;
-  }
-  .orb-inner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      conic-gradient(from 200deg at 40% 45%, transparent 0deg, rgba(100,180,200,0.35) 60deg, transparent 120deg),
-      conic-gradient(from 20deg at 60% 55%, transparent 0deg, rgba(220,160,40,0.40) 80deg, transparent 160deg);
-    animation: orbSpin 8s linear infinite;
-  }
-  .orb-inner::after {
-    content: '';
-    position: absolute;
-    top: 15%;
-    left: 20%;
-    width: 30%;
-    height: 30%;
-    background: radial-gradient(circle, rgba(255,220,120,0.6) 0%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(8px);
-  }
-  @keyframes orbPulse {
-    0%, 100% { box-shadow: 0 0 60px rgba(201,168,83,0.25), 0 0 120px rgba(201,168,83,0.10), inset 0 0 30px rgba(0,0,0,0.6); }
-    50%       { box-shadow: 0 0 80px rgba(201,168,83,0.35), 0 0 150px rgba(201,168,83,0.15), inset 0 0 30px rgba(0,0,0,0.6); }
-  }
-  @keyframes orbSpin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  /* ── Report title ── */
-  .report-title {
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    color: white;
-    padding: 0 24px;
-    margin-bottom: 28px;
-  }
-
-  /* ── Gold divider ── */
-  .gold-divider {
-    width: 48px;
-    height: 1px;
-    background: var(--gold);
-    margin: 14px auto 28px;
-    opacity: 0.7;
-  }
-
-  /* ── Summary section ── */
-  .summary-section {
-    padding: 0 24px 32px;
-  }
-  .section-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  .summary-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.75;
-    text-align: center;
-    color: rgba(255,255,255,0.85);
-  }
-
-  /* ── Stats row ── */
-  .stats-row {
-    display: flex;
-    gap: 1px;
-    margin: 0 20px 28px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--border);
-  }
-  .stat-cell {
-    flex: 1;
-    background: var(--bg-card);
-    padding: 18px 16px;
-  }
-  .stat-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .stat-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: white;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── Insight cards ── */
-  .cards-section {
-    padding: 0 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-  .insight-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 22px 20px;
-    transition: background 0.2s;
-  }
-  .insight-card:hover { background: var(--bg-card-hov); }
-
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 14px;
-  }
-  .card-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: rgba(255,255,255,0.7);
-    border: 1px solid rgba(255,255,255,0.10);
-  }
-  .card-tag {
-    background: var(--tag-bg);
-    border: 1px solid var(--tag-border);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.65);
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: white;
-    margin-bottom: 10px;
-    letter-spacing: 0.01em;
-  }
-  .card-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text-body);
-    font-weight: 300;
-  }
-
-  /* ── Pagination ── */
-  .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 28px;
-  }
-  .page-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s;
-  }
-  .page-btn:hover { background: rgba(255,255,255,0.12); }
-  .page-count {
-    font-size: 13px;
-    color: var(--text-dim);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── CTA ── */
-  .cta-section {
-    padding: 0 16px;
-  }
-  .cta-btn {
-    width: 100%;
-    background: var(--cream);
-    color: #1a1208;
-    border: none;
-    border-radius: 14px;
-    padding: 20px 24px;
-    font-family: 'Jost', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: opacity 0.2s, transform 0.15s;
-  }
-  .cta-btn:hover { opacity: 0.92; transform: translateY(-1px); }
-  .cta-btn:active { transform: translateY(0); }
-  .cta-icon {
-    font-size: 16px;
-    opacity: 0.7;
-  }
-`;
 
 export default async function ReportPage({
   params,
@@ -609,69 +252,400 @@ export default async function ReportPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
   const report = reports[slug];
 
-  if (!report) notFound();
+  if (!report) {
+    notFound();
+  }
+
+  const gridCards = report.insights.filter(
+    (card) => card.layout !== "wide"
+  );
+
+  const wideCards = report.insights.filter(
+    (card) => card.layout === "wide"
+  );
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
+    <main
+      className="min-h-screen relative flex justify-center overflow-hidden"
+      style={{ background: "#131315" }}
+    >
+      {/* Cosmic Background */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          background: `
+            radial-gradient(circle at 15% 20%, rgba(201,168,83,0.08) 0%, transparent 25%),
+            radial-gradient(circle at 85% 70%, rgba(125,90,40,0.12) 0%, transparent 30%),
+            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 40%),
+            #07070C
+          `,
+        }}
+      />
 
-      <div className="oracle-bg" />
+      {/* Nebula Overlay */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-40 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 30%, rgba(80,50,120,0.35) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(40,60,100,0.2) 0%, transparent 50%)",
+        }}
+      />
 
-      <div className="page-wrapper">
+      {/* Planet Glow */}
+      <div
+        className="fixed z-0 pointer-events-none"
+        style={{
+          right: "-18vw",
+          top: "8vh",
+          width: "60vw",
+          height: "90vh",
+          borderRadius: "999px",
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(201,168,83,0.18), rgba(0,0,0,0.95) 65%)",
+          boxShadow: "0 0 120px rgba(201,168,83,0.12)",
+          filter: "blur(6px)",
+        }}
+      />
+
+      {/* Top App Bar */}
+      <TopAppBar />
+
+      {/* Main Content */}
+      <div
+        className="relative z-10 flex flex-col w-full"
+        style={{
+          width: "100%",
+          maxWidth: "1100px",
+          paddingTop: "110px",
+          paddingBottom: "140px",
+          paddingLeft: "24px",
+          paddingRight: "24px",
+          gap: "32px",
+        }}
+      >
+        {/* Title */}
+        <div
+          className="flex flex-col items-center"
+          style={{ gap: "12px" }}
+        >
+          <h1
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "34px",
+              color: "#fff",
+              fontWeight: 400,
+              letterSpacing: "0.04em",
+              textAlign: "center",
+            }}
+          >
+            {report.title}
+          </h1>
+
+          <div
+            style={{
+              width: "60px",
+              height: "2px",
+              background: "#C9A853",
+              opacity: 0.8,
+            }}
+          />
+        </div>
 
         {/* Orb */}
-        <div className="orb-section">
-          <div className="orb-outer">
-            <div className="orb-inner" />
+        <div className="flex justify-center">
+          <div
+            style={{
+              width: "280px",
+              height: "280px",
+              borderRadius: "999px",
+              border: "1px solid rgba(201,168,83,0.18)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                width: "78%",
+                height: "78%",
+                borderRadius: "999px",
+                background:
+                  "radial-gradient(circle at 35% 35%, rgba(232,162,42,1) 0%, rgba(180,110,20,0.85) 22%, rgba(10,10,12,1) 70%)",
+                boxShadow:
+                  "0 0 80px rgba(201,168,83,0.35), inset 0 0 50px rgba(0,0,0,0.7)",
+              }}
+            />
           </div>
         </div>
 
-        {/* Report Title */}
-        <h1 className="report-title">{report.title}</h1>
-        <div className="gold-divider" />
+        {/* Summary + Stats */}
+        <div
+          className="grid md:grid-cols-[1fr_180px]"
+          style={{ gap: "40px" }}
+        >
+          <div>
+            <p
+              style={{
+                fontSize: "12px",
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: "#C9A853",
+                marginBottom: "18px",
+              }}
+            >
+              Celestial Union Summary
+            </p>
 
-        {/* Summary */}
-        <div className="summary-section">
-          <p className="section-label">Celestial Union Summary</p>
-          <p className="summary-text">"{report.summary}"</p>
+            <p
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "28px",
+                lineHeight: "1.8",
+                color: "rgba(255,255,255,0.82)",
+                fontStyle: "italic",
+                fontWeight: 300,
+              }}
+            >
+              "{report.summary}"
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <div>
+              <p
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.24em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.4)",
+                  marginBottom: "6px",
+                }}
+              >
+                Compatibility
+              </p>
+
+              <h3
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "34px",
+                  color: "#fff",
+                  fontWeight: 400,
+                }}
+              >
+                {report.compatibility}
+              </h3>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.24em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.4)",
+                  marginBottom: "6px",
+                }}
+              >
+                Element
+              </p>
+
+              <h3
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "34px",
+                  color: "#fff",
+                  fontWeight: 400,
+                }}
+              >
+                {report.element}
+              </h3>
+            </div>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className="stats-row">
-          <div className="stat-cell">
-            <p className="stat-label">Compatibility</p>
-            <p className="stat-value">{report.compatibility}</p>
-          </div>
-          <div className="stat-cell">
-            <p className="stat-label">Element</p>
-            <p className="stat-value">{report.element}</p>
-          </div>
-        </div>
+        {/* Cards */}
+        <div className="flex flex-col gap-5">
+          {/* Grid Cards */}
+          <div className="grid md:grid-cols-2 gap-5">
+            {gridCards.map((card, index) => (
+              <div
+                key={index}
+                style={{
+                  background: "rgba(28,25,20,0.72)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "22px",
+                  padding: "28px",
+                  backdropFilter: "blur(12px)",
+                }}
+              >
+                <div
+                  className="flex items-start justify-between"
+                  style={{ marginBottom: "18px" }}
+                >
+                  <div
+                    style={{
+                      width: "52px",
+                      height: "52px",
+                      borderRadius: "999px",
+                      background: "rgba(255,255,255,0.06)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "22px",
+                    }}
+                  >
+                    {card.icon}
+                  </div>
 
-        {/* Insight Cards */}
-        <div className="cards-section">
-          {report.insights.map((card, i) => (
-            <div className="insight-card" key={i}>
-              <div className="card-top">
-                <div className="card-icon">{card.icon}</div>
-                {card.tag && <div className="card-tag">{card.tag}</div>}
+                  {card.tag && (
+                    <div
+                      style={{
+                        padding: "6px 14px",
+                        borderRadius: "999px",
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        fontSize: "10px",
+                        letterSpacing: "0.12em",
+                        color: "rgba(255,255,255,0.6)",
+                      }}
+                    >
+                      {card.tag}
+                    </div>
+                  )}
+                </div>
+
+                <h2
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "32px",
+                    color: "#fff",
+                    marginBottom: "14px",
+                    fontWeight: 400,
+                  }}
+                >
+                  {card.title}
+                </h2>
+
+                <p
+                  style={{
+                    color: "rgba(255,255,255,0.68)",
+                    lineHeight: "1.9",
+                    fontSize: "16px",
+                    fontWeight: 300,
+                  }}
+                >
+                  {card.description}
+                </p>
               </div>
-              <h2 className="card-title">{card.title}</h2>
-              <p className="card-desc">{card.description}</p>
+            ))}
+          </div>
+
+          {/* Wide Cards */}
+          {wideCards.map((card, index) => (
+            <div
+              key={index}
+              style={{
+                background: "rgba(28,25,20,0.72)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "22px",
+                padding: "28px",
+                backdropFilter: "blur(12px)",
+              }}
+            >
+              <div className="flex gap-5 items-start">
+                <div
+                  style={{
+                    width: "58px",
+                    height: "58px",
+                    borderRadius: "999px",
+                    background: "rgba(255,255,255,0.06)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "22px",
+                    flexShrink: 0,
+                  }}
+                >
+                  {card.icon}
+                </div>
+
+                <div>
+                  <h2
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "34px",
+                      color: "#fff",
+                      marginBottom: "14px",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {card.title}
+                  </h2>
+
+                  <p
+                    style={{
+                      color: "rgba(255,255,255,0.68)",
+                      lineHeight: "1.9",
+                      fontSize: "16px",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {card.description}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="cta-section">
-          <button className="cta-btn">
-            Download Full Blueprint
-            <span className="cta-icon">↓</span>
+        <div className="flex justify-center pt-4">
+          <button
+            style={{
+              background: "#E8D9B5",
+              color: "#1b1408",
+              border: "none",
+              borderRadius: "16px",
+              padding: "20px 40px",
+              fontSize: "13px",
+              fontWeight: 600,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              minWidth: "320px",
+              boxShadow: "0 12px 40px rgba(201,168,83,0.16)",
+            }}
+          >
+            Download Full Blueprint ↓
           </button>
         </div>
       </div>
-    </>
+
+      {/* AI Floating Button */}
+      <button
+        className="fixed z-50 rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+        style={{
+          bottom: "100px",
+          right: "40px",
+          width: "60px",
+          height: "60px",
+          background:
+            "linear-gradient(135deg, #e1c296 0%, #c9913a 100%)",
+          border: "none",
+          cursor: "pointer",
+          boxShadow: "0px 8px 32px rgba(201, 145, 58, 0.4)",
+        }}
+        aria-label="Open Chatbot"
+      >
+        <Sparkles size={28} color="#131315" strokeWidth={2.5} />
+      </button>
+
+      {/* Bottom Nav */}
+      <BottomNavBar />
+    </main>
   );
 }

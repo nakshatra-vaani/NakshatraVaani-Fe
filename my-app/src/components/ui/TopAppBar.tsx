@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Sparkles, User, Search } from "lucide-react";
+import { ProfileMenu } from "@/components/ui/ProfileMenu";
 
 interface TopAppBarProps {
   showNotification?: boolean;
@@ -88,16 +89,13 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
         )}
 
         {/* Avatar */}
-        <button 
-          className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden border border-white/10 hover:border-[#e1c296]/50 transition-colors"
-          style={{ background: "rgba(255,255,255,0.05)" }}
-        >
-          {profileImageSrc ? (
-            <img src={profileImageSrc} alt="Profile" className="w-full h-full object-cover" />
-          ) : (
-            <User size={18} color="rgba(188,199,222,0.8)" strokeWidth={2} />
-          )}
-        </button>
+        <ProfileMenu
+         profileImageSrc={profileImageSrc}
+          onLogout={() => {
+          // Clear auth token/session here, then redirect if needed.
+          window.location.href = "/login";
+        }}
+/>
       </div>
     </header>
   );
