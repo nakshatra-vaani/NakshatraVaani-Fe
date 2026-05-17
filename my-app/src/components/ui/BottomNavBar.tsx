@@ -55,7 +55,7 @@ const navItems = [
   { label: "Chat", href: "/chat", Icon: ChatIcon },
   { label: "Kundali", href: "/kundali", Icon: KundaliIcon },
   { label: "Reports", href: "/reports", Icon: ReportsIcon },
-  { label: "Profile", href: "/profile", Icon: ProfileIcon },
+  { label: "Profile", href: "/dashboard/profile", Icon: ProfileIcon },
 ];
 
 export const BottomNavBar: React.FC = () => {
