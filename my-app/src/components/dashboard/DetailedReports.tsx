@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import {
   MarriageIcon,
   EducationIcon,
@@ -12,6 +13,7 @@ import {
 
 interface Report {
   id: string;
+  slug: string;
   icon: React.ReactNode;
   title: string;
   description: string;
@@ -20,36 +22,42 @@ interface Report {
 const reports: Report[] = [
   {
     id: "marriage",
+    slug: "marriage-report",
     icon: <MarriageIcon />,
     title: "Marriage Report",
     description: "Timeline & marital bliss analysis.",
   },
   {
     id: "education",
+    slug: "educational-report",
     icon: <EducationIcon />,
     title: "Educational Report",
     description: "Academic path & competitive exams.",
   },
   {
     id: "loyalty",
+    slug: "loyalty-report",
     icon: <LoyaltyIcon />,
     title: "Loyalty Report",
     description: "Deep trust & partnership honesty.",
   },
   {
     id: "career",
+    slug: "career-wealth-report",
     icon: <CareerIcon />,
     title: "Career & Wealth",
     description: "Financial destiny & promotion peaks.",
   },
   {
     id: "health",
+    slug: "health-report",
     icon: <HealthIcon />,
     title: "Health",
     description: "Vitality trends & ayurvedic balance.",
   },
   {
     id: "overall",
+    slug: "overall-life-report",
     icon: <OverallLifeIcon />,
     title: "Overall Life",
     description: "360° view of your karmic timeline.",
@@ -63,6 +71,8 @@ interface DetailedReportsProps {
 export const DetailedReports: React.FC<DetailedReportsProps> = ({
   onGetAccess,
 }) => {
+  const router = useRouter();
+
   return (
     <section className="w-full">
       <div className="mb-8">
@@ -79,6 +89,7 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
         {reports.map((report) => (
           <div
             key={report.id}
+            onClick={() => router.push(`/single-reports/${report.slug}`)}
             className="flex items-center rounded-2xl cursor-pointer transition-all duration-200 active:scale-[0.98] hover:border-white/10"
             style={{
               padding: '24px',
@@ -112,7 +123,8 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
 
       {/* Divine Soul Partner Report CTA */}
       <div 
-        className="relative rounded-3xl overflow-hidden w-full"
+        onClick={() => router.push('/single-reports/divine-soul-partner')}
+        className="relative rounded-3xl overflow-hidden w-full cursor-pointer transition-transform active:scale-[0.99]"
         style={{
           padding: '32px 40px',
           background: 'linear-gradient(135deg, rgba(28,18,8,0.9) 0%, rgba(36,26,10,0.8) 40%, rgba(14,14,26,0.9) 100%)',
@@ -142,7 +154,10 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
           </div>
           
           <button
-            onClick={onGetAccess}
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push('/single-reports/divine-soul-partner');
+            }}
             className="rounded-full transition-transform active:scale-95 hover:bg-[#bcc7de]/90"
             style={{ 
               background: '#bcc7de', 

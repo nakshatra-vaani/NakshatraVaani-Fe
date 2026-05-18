@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TopAppBar } from "@/components/ui/TopAppBar";
 import { BottomNavBar } from "@/components/ui/BottomNavBar";
 import {
@@ -103,8 +104,26 @@ const BOTTOM_ARTICLES = [
   },
 ];
 
+// Helper to build a safe url slug matching our dynamic router setup
+const getSlug = (title: string) => {
+  const t = title.toLowerCase();
+  if (t.includes("mercury") || t.includes("retrograde")) {
+    return "navigating-mercury-retrograde";
+  }
+  return t
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+};
+
 export default function NakshatraInsightsPage() {
   const [activeCategory, setActiveCategory] = useState<InsightCategory>("ALL");
+  const router = useRouter();
+
+  const handleCardClick = (title: string) => {
+    router.push(`/blog/${getSlug(title)}`);
+  };
 
   // Filter logic
   const filterArticle = (tags: string[]) =>
@@ -193,6 +212,7 @@ export default function NakshatraInsightsPage() {
               title="The Age of Aquarius: A New Paradigm"
               excerpt="How the movement of Pluto into Aquarius signals a twenty-year cycle of radical innovation and collective growth."
               image={IMAGES.ageOfAquarius}
+              onClick={() => handleCardClick("The Age of Aquarius: A New Paradigm")}
             />
 
             {/* Right column — two stacked */}
@@ -201,11 +221,13 @@ export default function NakshatraInsightsPage() {
                 category="Inner Wisdom"
                 title="Understanding Your Moon Sign"
                 image={IMAGES.moonSign}
+                onClick={() => handleCardClick("Understanding Your Moon Sign")}
               />
               <FeaturedSideCard
                 category="Vedic Insights"
                 title="Mercury Retrograde Rituals"
                 image={IMAGES.mercuryRetrograde}
+                onClick={() => handleCardClick("Mercury Retrograde Rituals")}
               />
             </div>
           </div>
@@ -241,6 +263,7 @@ export default function NakshatraInsightsPage() {
                 authorInitials={article.authorInitials}
                 authorName={article.authorName}
                 readTime={article.readTime}
+                onClick={() => handleCardClick(article.title)}
               />
             ))}
           </div>
@@ -264,6 +287,7 @@ export default function NakshatraInsightsPage() {
                 category={TEXT_ARTICLE.category}
                 title={TEXT_ARTICLE.title}
                 excerpt={TEXT_ARTICLE.excerpt}
+                onClick={() => handleCardClick(TEXT_ARTICLE.title)}
               />
 
               {/* Ancient map image card */}
@@ -292,6 +316,7 @@ export default function NakshatraInsightsPage() {
                     authorInitials={article.authorInitials}
                     authorName={article.authorName}
                     readTime={article.readTime}
+                    onClick={() => handleCardClick(article.title)}
                   />
                 )
               )}
