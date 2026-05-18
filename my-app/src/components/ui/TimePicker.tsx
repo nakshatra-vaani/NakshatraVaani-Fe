@@ -57,18 +57,18 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
         style={{
           display: "flex",
           alignItems: "center",
-          height: "44px",
+          height: "50px",
           borderRadius: "12px",
-          border: "1px solid rgba(255,255,255,0.1)",
-          background: "rgba(255,255,255,0.03)",
-          padding: "0 14px",
+          border: "1px solid rgba(69,70,77,0.15)",
+          background: "rgba(42,42,44,0.4)",
+          padding: "0 16px",
           cursor: "pointer",
         }}
       >
-        <span style={{ flex: 1, color: value ? "#fff" : "#4B5563", fontSize: "13px" }}>
+        <span style={{ flex: 1, color: value ? "#c6c6cd" : "rgba(118,129,151,0.5)", fontSize: "14px", fontFamily: "'Manrope', sans-serif" }}>
           {value || "--:-- --"}
         </span>
-        <Clock style={{ width: "16px", height: "16px", color: "#6B7280", flexShrink: 0 }} />
+        <Clock style={{ width: "18px", height: "18px", color: "rgba(118,129,151,0.6)", flexShrink: 0 }} />
       </div>
 
       {/* Dropdown */}
@@ -78,11 +78,11 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
           top: "calc(100% + 8px)",
           left: 0,
           zIndex: 100,
-          background: "#0d1424",
-          border: "1px solid rgba(255,255,255,0.1)",
+          background: "#131315",
+          border: "1px solid rgba(69,70,77,0.2)",
           borderRadius: "16px",
           padding: "20px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
           minWidth: "220px",
         }}>
           <p style={{
