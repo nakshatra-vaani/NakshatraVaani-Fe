@@ -1,16 +1,11 @@
 export interface SignupPayload {
   name: string;
   email: string;
-  phone: string;
-  dateOfBirth: string;
-  timeOfBirth: string;
-  placeOfBirth: string;
   password: string;
-  confirmPassword: string;
 }
 
 export interface LoginPayload {
-  emailOrPhone: string;
+  email: string;
   password: string;
 }
 
@@ -20,13 +15,5 @@ export interface AuthResponse {
     id: string;
     name: string;
     email: string;
-    phone?: string;
-    dateOfBirth?: string;
-    placeOfBirth?: string;
   };
-}
-
-export interface FirebaseAuthResponse {
-  firebaseToken: string;
-  firebaseUid: string;
 }
