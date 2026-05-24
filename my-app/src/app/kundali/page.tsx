@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TopAppBar } from "@/components/ui/TopAppBar";
 import { BottomNavBar } from "@/components/ui/BottomNavBar";
 import { PartnerDetails } from "@/components/kundali/PartnerDetails";
@@ -14,18 +15,19 @@ interface PartnerData {
 }
 
 export default function KundaliMatchingPage() {
+  const router = useRouter();
   const [malePartner, setMalePartner] = useState<PartnerData>({
-    fullName: "",
-    dateOfBirth: "",
-    timeOfBirth: "",
-    placeOfBirth: "",
+    fullName: "Aarav Sharma",
+    dateOfBirth: "15/08/1995",
+    timeOfBirth: "12:00 PM",
+    placeOfBirth: "New Delhi, Delhi, India",
   });
 
   const [femalePartner, setFemalePartner] = useState<PartnerData>({
-    fullName: "",
-    dateOfBirth: "",
-    timeOfBirth: "",
-    placeOfBirth: "",
+    fullName: "Ishani Verma",
+    dateOfBirth: "23/11/1997",
+    timeOfBirth: "02:30 PM",
+    placeOfBirth: "Mumbai, Maharashtra, India",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -38,15 +40,9 @@ export default function KundaliMatchingPage() {
     setFemalePartner((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleCalculateGunaMilan = async () => {
+  const handleCalculateGunaMilan = () => {
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Male Partner:", malePartner);
-      console.log("Female Partner:", femalePartner);
-      setIsLoading(false);
-      // TODO: Navigate to results page or show results
-    }, 1500);
+    router.push("/kundali-matching-result");
   };
 
   const isFormValid =
@@ -211,11 +207,9 @@ export default function KundaliMatchingPage() {
                 padding: "16px 48px",
                 borderRadius: "100px",
                 border: "none",
-                cursor: isFormValid ? "pointer" : "not-allowed",
-                opacity: isFormValid ? 1 : 0.6,
-                boxShadow: isFormValid 
-                  ? "0px 10px 40px -10px rgba(201, 145, 58, 0.5)" 
-                  : "none",
+                cursor: "pointer",
+                opacity: 1,
+                boxShadow: "0px 10px 40px -10px rgba(201, 145, 58, 0.5)",
                 transition: "all 0.3s ease",
                 fontFamily: "'Manrope', sans-serif",
                 display: "flex",
@@ -224,7 +218,7 @@ export default function KundaliMatchingPage() {
                 letterSpacing: "0.02em"
               }}
               onClick={handleCalculateGunaMilan}
-              disabled={!isFormValid || isLoading}
+              disabled={isLoading}
               className="hover:scale-[1.02] active:scale-[0.98]"
             >
               {isLoading ? "Calculating Alignment..." : "Calculate Guna Milan"}
