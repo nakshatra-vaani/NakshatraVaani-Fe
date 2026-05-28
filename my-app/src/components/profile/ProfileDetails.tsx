@@ -185,7 +185,7 @@ export function ProfileDetails() {
         style={{
           minHeight: "100vh",
           position: "relative",
-          background: "#131315",
+          background: "transparent",
           overflowX: "hidden",
         }}
       >
@@ -206,9 +206,7 @@ export function ProfileDetails() {
               "radial-gradient(1px 1px at 72% 45%, rgba(255,255,255,0.28) 0%, transparent 100%)",
               "radial-gradient(1px 1px at 38% 88%, rgba(255,255,255,0.40) 0%, transparent 100%)",
               "radial-gradient(1px 1px at 90% 22%, rgba(255,255,255,0.33) 0%, transparent 100%)",
-              "radial-gradient(ellipse 55% 90% at 108% 68%, rgba(155,95,25,0.50) 0%, rgba(75,42,8,0.28) 40%, transparent 68%)",
-              "radial-gradient(ellipse 40% 30% at 50% 0%, rgba(95,60,12,0.16) 0%, transparent 55%)",
-              "#07070C",
+              "transparent",
             ].join(", "),
           }}
         />
@@ -221,29 +219,11 @@ export function ProfileDetails() {
             zIndex: 0,
             pointerEvents: "none",
             background:
-              "linear-gradient(180deg, #131315 0%, rgba(19,19,21,0) 15%, rgba(19,19,21,0) 85%, #131315 100%)",
+              "linear-gradient(180deg, rgba(19,19,21,0.6) 0%, rgba(19,19,21,0) 15%, rgba(19,19,21,0) 85%, rgba(19,19,21,0.6) 100%)",
           }}
         />
 
-        {/* Planet Glow */}
-        <div
-          style={{
-            position: "fixed",
-            right: "-20vw",
-            top: "8vh",
-            width: "62vw",
-            height: "92vh",
-            borderRadius: "50%",
-            background: [
-              "radial-gradient(ellipse 52% 62% at 28% 32%, rgba(195,135,45,0.20) 0%, transparent 52%)",
-              "radial-gradient(ellipse 80% 80% at 50% 50%, #2a1e0d 0%, #191208 40%, #0c0a07 100%)",
-            ].join(", "),
-            boxShadow:
-              "inset -50px -25px 90px rgba(0,0,0,0.82), 0 0 130px rgba(130,85,18,0.16)",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
+
 
         {/* ────────────────────────────────────────────── */}
         {/* Top Navbar */}

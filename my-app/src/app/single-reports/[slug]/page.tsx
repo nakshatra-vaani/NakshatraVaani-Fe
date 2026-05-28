@@ -280,7 +280,7 @@ export default async function ReportPage({
             radial-gradient(circle at 15% 20%, rgba(201,168,83,0.08) 0%, transparent 25%),
             radial-gradient(circle at 85% 70%, rgba(125,90,40,0.12) 0%, transparent 30%),
             radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 40%),
-            #07070C
+            transparent
           `,
         }}
       />
@@ -304,7 +304,7 @@ export default async function ReportPage({
           height: "90vh",
           borderRadius: "999px",
           background:
-            "radial-gradient(circle at 30% 30%, rgba(201,168,83,0.18), rgba(0,0,0,0.95) 65%)",
+            "radial-gradient(circle at 30% 30%, rgba(201,168,83,0.18), rgba(0,0,0,0) 65%)",
           boxShadow: "0 0 120px rgba(201,168,83,0.12)",
           filter: "blur(6px)",
         }}
