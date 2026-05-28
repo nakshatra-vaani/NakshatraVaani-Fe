@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 import { BookOpen, Brain, Heart, Infinity as InfinityIcon } from "lucide-react";
 
@@ -40,6 +41,7 @@ const services = [
 ];
 
 export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => {
+  const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -116,6 +118,13 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
         {services.map((service) => (
           <div
             key={service.id}
+            onClick={() => {
+              if (service.id === "kundali") {
+                router.push("/kundali");
+              } else if (service.id === "horoscope") {
+                router.push("/horoscope");
+              }
+            }}
             className="flex-shrink-0 flex flex-col relative group cursor-pointer"
             style={{
               width: "300px",
