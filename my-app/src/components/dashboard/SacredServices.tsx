@@ -44,6 +44,7 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
   const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleScroll = useCallback(() => {
     if (!scrollContainerRef.current) return;
@@ -108,7 +109,7 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
           )}
         </div>
       </div>
-
+ 
       <HorizontalScroll 
         ref={scrollContainerRef}
         className="px-0" 
@@ -118,6 +119,8 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
         {services.map((service) => (
           <div
             key={service.id}
+            onMouseEnter={() => setHoveredId(service.id)}
+            onMouseLeave={() => setHoveredId(null)}
             onClick={() => {
               if (service.id === "kundali") {
                 router.push("/kundali");
@@ -132,8 +135,14 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
               background: "#1c1b1d",
               borderRadius: "32px",
               padding: "36px",
-              border: "1px solid rgba(225,194,150,0.05)",
-              transition: "all 0.3s ease"
+              border: hoveredId === service.id 
+                ? "1px solid rgba(225, 194, 150, 0.25)" 
+                : "1px solid rgba(225, 194, 150, 0.05)",
+              boxShadow: hoveredId === service.id
+                ? "0 0 25px rgba(225, 194, 150, 0.12), inset 0 0 15px rgba(225, 194, 150, 0.02)"
+                : "none",
+              transform: hoveredId === service.id ? "translateY(-4px)" : "none",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
             }}
           >
             {/* Icon */}

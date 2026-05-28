@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 interface ReportFeaturedCardProps {
   badge?: string;
@@ -19,12 +19,23 @@ export const ReportFeaturedCard: React.FC<ReportFeaturedCardProps> = ({
   ctaLabel = "Unveil Connection",
   onCta,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
-      className="relative w-full rounded-[32px] overflow-hidden border border-[rgba(225,194,150,0.2)] p-px"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative w-full rounded-[32px] overflow-hidden p-px"
       style={{
         background: "#1c1b1d",
-        boxShadow: "0px 0px 50px 0px rgba(225,194,150,0.15)",
+        border: isHovered
+          ? "1px solid rgba(225, 194, 150, 0.4)"
+          : "1px solid rgba(225, 194, 150, 0.2)",
+        boxShadow: isHovered
+          ? "0px 0px 60px 0px rgba(225, 194, 150, 0.25)"
+          : "0px 0px 50px 0px rgba(225, 194, 150, 0.15)",
+        transform: isHovered ? "translateY(-4px)" : "none",
+        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
       }}
     >
       {/* Mystical bg texture overlay */}
