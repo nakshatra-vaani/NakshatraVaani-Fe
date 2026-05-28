@@ -40,17 +40,7 @@ export default function PersonalizedHoroscope() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen relative flex justify-center overflow-x-hidden bg-black">
-      {/* Fixed cosmic nebula background */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/cosmic-bg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 20%",
-          opacity: 0.45,
-        }}
-      />
+    <main className="min-h-screen relative flex justify-center overflow-x-hidden">
 
       {/* Ambient radial glow behind hero */}
       <div

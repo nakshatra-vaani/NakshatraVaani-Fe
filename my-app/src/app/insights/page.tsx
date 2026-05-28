@@ -130,7 +130,7 @@ export default function NakshatraInsightsPage() {
     activeCategory === "ALL" || tags.includes(activeCategory);
 
   return (
-    <main className="min-h-screen relative flex flex-col items-center w-full" style={{ background: "#131315" }}>
+    <main className="min-h-screen relative flex flex-col items-center w-full" style={{ background: "transparent" }}>
       {/* Background */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-screen opacity-40"

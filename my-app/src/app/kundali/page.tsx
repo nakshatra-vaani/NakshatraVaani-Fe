@@ -56,7 +56,7 @@ export default function KundaliMatchingPage() {
     femalePartner.placeOfBirth;
 
   return (
-    <main className="min-h-screen relative flex flex-col items-center" style={{ background: "#131315" }}>
+    <main className="min-h-screen relative flex flex-col items-center" style={{ background: "transparent" }}>
       {/* Background effects matching Dashboard */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-screen opacity-40"

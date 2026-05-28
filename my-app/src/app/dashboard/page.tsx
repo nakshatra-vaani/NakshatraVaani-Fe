@@ -9,7 +9,7 @@ import { Sparkles } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen relative flex justify-center" style={{ background: "#131315" }}>
+    <main className="min-h-screen relative flex justify-center" style={{ background: "transparent" }}>
       {/* Background: Deep space nebula matching Reports page */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-screen opacity-40"

@@ -23,17 +23,7 @@ const ashtaKutaData: KutaMetric[] = [
 
 export default function KundaliMatchingResults() {
   return (
-    <main className="min-h-screen relative flex justify-center overflow-x-hidden bg-black">
-      {/* Fixed cosmic nebula background */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/cosmic-bg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.6,
-        }}
-      />
+    <main className="min-h-screen relative flex justify-center overflow-x-hidden">
 
       {/* Radial gradient overlay for depth */}
       <div

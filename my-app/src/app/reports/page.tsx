@@ -83,7 +83,7 @@ export default function ReportsPage() {
   return (
     <main
       className="min-h-screen relative overflow-hidden"
-      style={{ background: "#131315" }}
+      style={{ background: "transparent" }}
     >
       {/* Background */}
       <div

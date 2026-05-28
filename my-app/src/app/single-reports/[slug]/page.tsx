@@ -270,7 +270,7 @@ export default async function ReportPage({
   return (
     <main
       className="min-h-screen relative flex justify-center overflow-hidden"
-      style={{ background: "#131315" }}
+      style={{ background: "transparent" }}
     >
       {/* Cosmic Background */}
       <div

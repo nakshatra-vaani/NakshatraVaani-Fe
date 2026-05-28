@@ -18,12 +18,13 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between backdrop-blur-[12px]"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
       style={{
         padding: '16px 40px',
-        background:
-          "linear-gradient(180deg, #131315 0%, rgba(19,19,21,0) 100%), linear-gradient(90deg, rgba(19,19,21,0.8) 0%, rgba(19,19,21,0.8) 100%)",
-        boxShadow: "0px 4px 30px 0px rgba(0,0,0,0.1)",
+        background: "rgba(28, 27, 29, 0.6)",
+        backdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(225, 194, 150, 0.08)",
+        boxShadow: "0px 4px 30px 0px rgba(0,0,0,0.15)",
         maxWidth: "100%",
       }}
     >

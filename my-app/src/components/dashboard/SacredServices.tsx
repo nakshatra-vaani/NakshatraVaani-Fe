@@ -132,7 +132,8 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
             style={{
               width: "300px",
               minHeight: "320px",
-              background: "#1c1b1d",
+              background: "rgba(28, 27, 29, 0.6)",
+              backdropFilter: "blur(12px)",
               borderRadius: "32px",
               padding: "36px",
               border: hoveredId === service.id 

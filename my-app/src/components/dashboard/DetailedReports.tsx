@@ -86,7 +86,7 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
       </div>
 
       {/* Grid of Reports */}
-      <div className="grid grid-cols-3" style={{ gap: '24px', marginBottom: '24px' }}>
+      <div className="flex flex-col" style={{ gap: '16px', marginBottom: '24px' }}>
         {reports.map((report) => (
           <div
             key={report.id}
@@ -97,7 +97,8 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
             style={{
               padding: '24px',
               gap: '16px',
-              background: '#1c1b1d',
+              background: 'rgba(28, 27, 29, 0.6)',
+              backdropFilter: 'blur(12px)',
               border: hoveredReportId === report.id
                 ? '1px solid rgba(225, 194, 150, 0.25)'
                 : '1px solid rgba(69,70,77,0.1)',
