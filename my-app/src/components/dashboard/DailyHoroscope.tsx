@@ -57,7 +57,8 @@ export const DailyHoroscope: React.FC<DailyHoroscopeProps> = ({
       <div 
         className="w-full flex rounded-[32px] relative overflow-hidden" 
         style={{ 
-          background: "#1c1b1d", 
+          background: "rgba(28, 27, 29, 0.6)", 
+          backdropFilter: "blur(12px)",
           border: "1px solid rgba(225,194,150,0.08)",
           boxShadow: "0px 0px 100px 0px rgba(201, 145, 58, 0.15)",
           padding: "56px 64px" 

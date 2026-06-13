@@ -6,11 +6,22 @@
   padding: 0;
 }
 
- html,body {
+html, body {
   width: 100%;
   min-height: 100%;
-  background: #000;
+  background-color: #000;
   color: white;
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
-} 
+
+  /* Responsive Background Image */
+  background-image: url('/bg-mobile.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+  html, body {
+    background-image: url('/bg-desktop.png');
+  }

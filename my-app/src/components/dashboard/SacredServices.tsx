@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 import { BookOpen, Brain, Heart, Infinity as InfinityIcon } from "lucide-react";
 
@@ -40,8 +41,10 @@ const services = [
 ];
 
 export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => {
+  const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleScroll = useCallback(() => {
     if (!scrollContainerRef.current) return;
@@ -106,7 +109,7 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
           )}
         </div>
       </div>
-
+ 
       <HorizontalScroll 
         ref={scrollContainerRef}
         className="px-0" 
@@ -116,15 +119,31 @@ export const SacredServices: React.FC<SacredServicesProps> = ({ onViewAll }) => 
         {services.map((service) => (
           <div
             key={service.id}
+            onMouseEnter={() => setHoveredId(service.id)}
+            onMouseLeave={() => setHoveredId(null)}
+            onClick={() => {
+              if (service.id === "kundali") {
+                router.push("/kundali");
+              } else if (service.id === "horoscope") {
+                router.push("/horoscope");
+              }
+            }}
             className="flex-shrink-0 flex flex-col relative group cursor-pointer"
             style={{
               width: "300px",
               minHeight: "320px",
-              background: "#1c1b1d",
+              background: "rgba(28, 27, 29, 0.6)",
+              backdropFilter: "blur(12px)",
               borderRadius: "32px",
               padding: "36px",
-              border: "1px solid rgba(225,194,150,0.05)",
-              transition: "all 0.3s ease"
+              border: hoveredId === service.id 
+                ? "1px solid rgba(225, 194, 150, 0.25)" 
+                : "1px solid rgba(225, 194, 150, 0.05)",
+              boxShadow: hoveredId === service.id
+                ? "0 0 25px rgba(225, 194, 150, 0.12), inset 0 0 15px rgba(225, 194, 150, 0.02)"
+                : "none",
+              transform: hoveredId === service.id ? "translateY(-4px)" : "none",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
             }}
           >
             {/* Icon */}

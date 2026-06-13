@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   MarriageIcon,
@@ -72,6 +72,7 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
   onGetAccess,
 }) => {
   const router = useRouter();
+  const [hoveredReportId, setHoveredReportId] = useState<string | null>(null);
 
   return (
     <section className="w-full">
@@ -85,17 +86,27 @@ export const DetailedReports: React.FC<DetailedReportsProps> = ({
       </div>
 
       {/* Grid of Reports */}
-      <div className="grid grid-cols-3" style={{ gap: '24px', marginBottom: '24px' }}>
+      <div className="flex flex-col" style={{ gap: '16px', marginBottom: '24px' }}>
         {reports.map((report) => (
           <div
             key={report.id}
+            onMouseEnter={() => setHoveredReportId(report.id)}
+            onMouseLeave={() => setHoveredReportId(null)}
             onClick={() => router.push(`/single-reports/${report.slug}`)}
             className="flex items-center rounded-2xl cursor-pointer transition-all duration-200 active:scale-[0.98] hover:border-white/10"
             style={{
               padding: '24px',
               gap: '16px',
-              background: '#1c1b1d',
-              border: '1px solid rgba(69,70,77,0.1)'
+              background: 'rgba(28, 27, 29, 0.6)',
+              backdropFilter: 'blur(12px)',
+              border: hoveredReportId === report.id
+                ? '1px solid rgba(225, 194, 150, 0.25)'
+                : '1px solid rgba(69,70,77,0.1)',
+              boxShadow: hoveredReportId === report.id
+                ? '0 0 25px rgba(225, 194, 150, 0.12), inset 0 0 15px rgba(225, 194, 150, 0.02)'
+                : 'none',
+              transform: hoveredReportId === report.id ? 'translateY(-4px)' : 'none',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
             {/* Icon Box */}

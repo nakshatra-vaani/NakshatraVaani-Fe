@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 type ReportLayout = "default" | "horizontal" | "horizontal-icon-left";
 
@@ -20,7 +20,7 @@ interface ReportBentoCardProps {
 }
 
 const cardBase =
-  "w-full rounded-[32px] border border-[rgba(69,70,77,0.1)] cursor-pointer transition-all duration-200 hover:border-[rgba(69,70,77,0.2)] hover:bg-[rgba(52,52,54,0.45)] active:scale-[0.99]";
+  "w-full rounded-[32px] cursor-pointer active:scale-[0.99]";
 
 const cardBg = "bg-[rgba(42,42,44,0.4)]";
 
@@ -34,14 +34,28 @@ export const ReportBentoCard: React.FC<ReportBentoCardProps> = ({
   onClick,
   className = "",
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const iconBoxClasses = "flex-shrink-0 flex items-center justify-center rounded-[20px] bg-[rgba(26,26,38,0.5)] border border-[rgba(255,255,255,0.05)]";
+
+  const hoverStyle: React.CSSProperties = {
+    border: isHovered
+      ? "1px solid rgba(225, 194, 150, 0.25)"
+      : "1px solid rgba(69, 70, 77, 0.1)",
+    boxShadow: isHovered
+      ? "0 0 25px rgba(225, 194, 150, 0.12), inset 0 0 15px rgba(225, 194, 150, 0.02)"
+      : "none",
+    transform: isHovered ? "translateY(-4px)" : "none",
+    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+  };
 
   if (layout === "horizontal") {
     // Career & Wealth style — icon on right
     return (
       <div
         className={`${cardBase} ${cardBg} flex items-center relative ${className}`}
-        style={{ padding: '32px', gap: '24px' }}
+        style={{ padding: '32px', gap: '24px', ...hoverStyle }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
       >
         {showArrow && (
@@ -102,7 +116,9 @@ export const ReportBentoCard: React.FC<ReportBentoCardProps> = ({
     return (
       <div
         className={`${cardBase} ${cardBg} flex flex-col relative ${className}`}
-        style={{ padding: '32px', gap: '20px' }}
+        style={{ padding: '32px', gap: '20px', ...hoverStyle }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
       >
         {showArrow && (
@@ -142,7 +158,9 @@ export const ReportBentoCard: React.FC<ReportBentoCardProps> = ({
   return (
     <div
       className={`${cardBase} ${cardBg} flex flex-col ${className}`}
-      style={{ padding: '32px', gap: '12px' }}
+      style={{ padding: '32px', gap: '12px', ...hoverStyle }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       {/* Top row: icon + arrow */}

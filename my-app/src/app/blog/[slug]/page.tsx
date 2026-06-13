@@ -31,7 +31,7 @@ export default function BlogPostPage() {
   };
 
   return (
-    <main className="min-h-screen relative flex flex-col items-center w-full" style={{ background: "#131315" }}>
+    <main className="min-h-screen relative flex flex-col items-center w-full" style={{ background: "transparent" }}>
       {/* Background */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-screen opacity-40"
@@ -45,7 +45,7 @@ export default function BlogPostPage() {
         className="fixed inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, #131315 0%, rgba(19,19,21,0) 20%, rgba(19,19,21,0) 80%, #131315 100%)",
+            "linear-gradient(180deg, rgba(19,19,21,0.6) 0%, rgba(19,19,21,0) 20%, rgba(19,19,21,0) 80%, rgba(19,19,21,0.6) 100%)",
         }}
       />
 
